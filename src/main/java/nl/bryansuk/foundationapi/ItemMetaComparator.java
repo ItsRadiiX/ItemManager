@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class ItemMetaComparator {
 
     public static boolean containsAllMeta(ItemStack itemA, ItemStack itemB) {

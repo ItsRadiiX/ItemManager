@@ -4,7 +4,6 @@ import io.papermc.paper.event.block.CompostItemEvent;
 import io.papermc.paper.event.entity.EntityCompostItemEvent;
 import io.papermc.paper.event.entity.EntityDamageItemEvent;
 import io.papermc.paper.event.player.*;
-import nl.bryansuk.foundationapi.exceptions.ItemManagerException;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -26,15 +25,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class ItemManager implements Listener{
 
     private static Map<String, CustomItem> customItemMap;
     private static NamespacedKey namespacedKey;
+    private static JavaPlugin plugin;
 
     public ItemManager(JavaPlugin plugin) {
         customItemMap = new HashMap<>();
         namespacedKey = new NamespacedKey(plugin, "custom_item");
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        ItemManager.plugin = plugin;
     }
 
     public void registerCustomItem(CustomItem item){
@@ -66,6 +68,10 @@ public class ItemManager implements Listener{
         if (name == null) return null;
 
         return customItemMap.get(name);
+    }
+
+    public static JavaPlugin getPlugin() {
+        return plugin;
     }
 
     @EventHandler

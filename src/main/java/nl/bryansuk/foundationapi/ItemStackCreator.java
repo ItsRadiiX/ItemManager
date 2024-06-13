@@ -303,6 +303,24 @@ public class ItemStackCreator {
         return this;
     }
 
+    /**
+     * Adds persistent data to the ItemStack.
+     *
+     * @param key The key.
+     * @param dataType The persistent data type.
+     * @param object The persistent data object.
+     * @param <K> The type of the persistent data key.
+     * @param <V> The type of the persistent data value.
+     * @return The ItemCreator instance.
+     */
+    public <K, V> ItemStackCreator addPersistentData(String key, PersistentDataType<K, V> dataType, V object){
+        if (key == null || dataType == null || object == null) return this;
+        if (key.isEmpty() || key.isBlank()) return this;
+
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(ItemManager.getPlugin(), key), dataType, object);
+        return this;
+    }
+
 
     /*
             Regular Item meta
